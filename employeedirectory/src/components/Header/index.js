@@ -3,10 +3,14 @@ import Logo from "./phoenix.png";
 
 function Header(){
     return (
-        <div className=" border-bottom p-4">
-            <img className="float-left" src={Logo} alt="Phoenix Logo"/>
-            <h1>Phoenix Employee Directory</h1>
-            <h4>Your Ultimate Employee Lookup</h4>
+        <div className="row border-bottom p-4">
+            <div className = "col-md-3 d-flex justify-content-center">
+                 <img src={Logo} className="img-fluid" alt="Phoenix Logo"/>
+            </div>
+            <div className="col-md-9 p-4">
+                <h1>Phoenix Employee Directory</h1>
+                <h4>Your Ultimate Employee Lookup</h4>
+            </div>
         </div>
     )
 }

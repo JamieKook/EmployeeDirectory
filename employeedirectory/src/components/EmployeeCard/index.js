@@ -1,4 +1,5 @@
 import React from "react"; 
+import "./style.css"; 
 
 
 function EmployeeCard(props){
@@ -13,7 +14,8 @@ function EmployeeCard(props){
               <strong>Name:</strong> {props.fullname}
             </li>
             <li>
-              <strong>Address:</strong> {props.address}
+              <strong>Address:</strong> {props.address1}
+              <br></br>{props.address2}
             </li>
             <li>
               <strong>Email:</strong> {props.email}
