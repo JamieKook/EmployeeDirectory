@@ -1,12 +1,13 @@
 import React from "react"; 
-// import Card from "../Card"; 
 import API from "../../utils/API";
 import EmployeeCard from "../EmployeeCard";
+import ButtonContainer from "../ButtonContainer"; 
 
 class CardContainer extends React.Component {
 
     state= {
-        employees: []
+        employees: [],
+        viewEmployees: []
     }; 
 
     componentDidMount(){
@@ -33,28 +34,61 @@ class CardContainer extends React.Component {
 
                     return employeeFormat; 
                 })
-                console.log(employeeFormattedData); 
-                this.setState({ employees: employeeFormattedData}); })
+                this.setState({ employees: employeeFormattedData});
+                this.setState({viewEmployees: employeeFormattedData}); 
+             })
             .catch(err => console.log(err)); 
     }; 
 
+    filterbyLastNameLetter = (letter) => {
+        if (letter !== "all"){
+            let selectedEmployees = []; 
+            for (const employee of this.state.employees){
+                let lastName = employee.fullname.split(" ")[1];
+                let initial= lastName.split("")[0]; 
+                if (letter.toUpperCase() === initial.toUpperCase()){
+                    selectedEmployees.push(employee); 
+                } 
+            }  
+            this.setState({viewEmployees: selectedEmployees}); 
+        } else {
+            this.setState({viewEmployees: this.state.employees}); 
+        }
+    }; 
+
+    handleLetterBtnSubmit = event => {
+        const letter= event.target.name
+        this.filterbyLastNameLetter(letter); 
+    }
+
     render() {
         return (
-            <div className = "d-flex flex-wrap justify-content-center"> 
-            {this.state.employees.map(employee =>(
-                <EmployeeCard 
-                    id = {this.state.employees.indexOf(employee)}
-                    key = {this.state.employees.indexOf(employee)}
-                    image= {employee.image}
-                    fullname = {employee.fullname}
-                    address1= {employee.address1}
-                    address2 = {employee.address2}
-                    email= {employee.email}
-                    phone= {employee.phone}
-                    birthday= {employee.birthday}
+            <div>
+                <ButtonContainer
+                    icon = {<i className="far fa-user"></i>}
+                    alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                    all = "all"
+                    map = {Array.prototype.map}
+                    handleLetterBtnSubmit = {this.handleLetterBtnSubmit}
                 />
-            ))}
+
+                <div className = "d-flex flex-wrap justify-content-center"> 
+                {this.state.viewEmployees.map(employee =>(
+                    <EmployeeCard 
+                        id = {this.state.viewEmployees.indexOf(employee)}
+                        key = {this.state.viewEmployees.indexOf(employee)}
+                        image= {employee.image}
+                        fullname = {employee.fullname}
+                        address1= {employee.address1}
+                        address2 = {employee.address2}
+                        email= {employee.email}
+                        phone= {employee.phone}
+                        birthday= {employee.birthday}
+                    />
+                ))}
+                </div>
             </div>
+            
         )
     }
 }

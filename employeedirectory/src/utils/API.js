@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "https://randomuser.me/api/?results=10&seed=phoenix&nat=us";
+const BASEURL = "https://randomuser.me/api/?results=40&seed=phoenix&nat=us";
 
 // Export an object with a "search" method that searches the Giphy API for the passed query
 export default {

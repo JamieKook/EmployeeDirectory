@@ -1,27 +1,33 @@
 import React from "react"; 
 import Button from "../Button"; 
 
-class ButtonContainer extends React.Component {
+function ButtonContainer(props) {
 
-    state= {
-        icon: <i className="far fa-user"></i>,
-        alpha: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-        map: Array.prototype.map
-    }; 
+    // state= {
+    //     icon: <i className="far fa-user"></i>,
+    //     alpha: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    //     map: Array.prototype.map
+    // }; 
 
-    render() {
+    // render() {
         return (
             <div className = "d-flex justify-content-between overflow-auto"> 
-                <Button letter= {this.state.icon}></Button>
-                {this.state.map.call(this.state.alpha, alphabet => (
+                <Button 
+                    handleLetterBtnSubmit = {props.handleLetterBtnSubmit}
+                    letter= {props.icon}
+                    name = {props.all}
+                />
+                {props.map.call(props.alpha, alphabet => (
                     <Button 
                         letter = {alphabet}
-                        key = {this.state.alpha.indexOf(alphabet)}
+                        name= {alphabet}
+                        key = {props.alpha.indexOf(alphabet)}
+                        handleLetterBtnSubmit = {props.handleLetterBtnSubmit}
                     />
                 ))}
             </div>
         )
-    }
+    // }
 }
 
 export default ButtonContainer; 

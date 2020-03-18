@@ -3,7 +3,7 @@ import "./style.css";
 
 function Button(props){
     return (
-        <button className="btn p-3 m-2">
+        <button name= {props.name} className="btn p-3 m-2" onClick= {props.handleLetterBtnSubmit}>
             {props.letter}
         </button>
     )
