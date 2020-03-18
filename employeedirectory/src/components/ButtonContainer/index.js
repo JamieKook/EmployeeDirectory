@@ -4,7 +4,7 @@ import Button from "../Button";
 class ButtonContainer extends React.Component {
 
     state= {
-        icon: <i class="far fa-user"></i>,
+        icon: <i className="far fa-user"></i>,
         alpha: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
         map: Array.prototype.map
     }; 
@@ -16,6 +16,7 @@ class ButtonContainer extends React.Component {
                 {this.state.map.call(this.state.alpha, alphabet => (
                     <Button 
                         letter = {alphabet}
+                        key = {this.state.alpha.indexOf(alphabet)}
                     />
                 ))}
             </div>
