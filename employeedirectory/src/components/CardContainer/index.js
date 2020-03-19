@@ -66,6 +66,47 @@ class CardContainer extends React.Component {
         this.filterbyLastNameLetter(letter); 
     };
 
+    iterate = (currentEmployees, index, alpha, i) => {
+        let lastName= Array.from(currentEmployees[i].fullname.split(" ")[1]);
+        let namePortion = lastName.splice(index, 1)[0]; 
+        let nextNamePortion = Array.from(currentEmployees[i+1].fullname.split(" ")[1]).splice(index,1)[0]; 
+        if (namePortion === undefined){
+            return currentEmployees; 
+        }else if (nextNamePortion === undefined || alpha.indexOf(namePortion.toUpperCase()) > alpha.indexOf(nextNamePortion.toUpperCase())){
+            let currentEmployee = currentEmployees[i]; 
+            currentEmployees[i] = currentEmployees[i+1]; 
+            currentEmployees[i+1]= currentEmployee; 
+            i=0; 
+        } else if (alpha.indexOf(namePortion.toUpperCase()) === alpha.indexOf(nextNamePortion.toUpperCase())){
+            index++
+            this.iterate(currentEmployees, index, alpha, i); 
+        } 
+        return currentEmployees; 
+}
+
+    alphaSort = (employeeAlphaObject)=>{
+        const alpha= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // debugger; 
+        for (const letter of alpha){
+            if (employeeAlphaObject[letter]){
+                if (employeeAlphaObject[letter].length >1){
+                    let currentEmployees = employeeAlphaObject[letter]
+                    // let lengthsOfNames= []; 
+                    // for (const employee of currentEmployees){
+                    //     lengthsOfNames.push(employee.fullname.split(" ")[1].length); 
+                    // }
+                    // let longestName = Math.max(...lengthsOfNames); 
+                    // debugger; 
+                    for (let i=0; i<currentEmployees.length-1; i++){ 
+                        let index=1; 
+                        currentEmployees = this.iterate(currentEmployees, index, alpha, i); 
+           
+                    }
+                }
+            }
+        }
+        return employeeAlphaObject; 
+    }
     handleSortSelect= event => {
         const choice = event.target.value; 
         console.log(choice); 
@@ -82,6 +123,7 @@ class CardContainer extends React.Component {
                         employeeAlphaObject[initial]= [employee]; 
                     }
                 }
+                employeeAlphaObject = this.alphaSort(employeeAlphaObject); 
                 console.log(employeeAlphaObject); 
                 const alpha= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 let employeeAlphaArr=[]; 
