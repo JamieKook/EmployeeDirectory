@@ -10,6 +10,7 @@ function SearchBar(props) {
         <select className="form-control" id="sortby" onChange= {props.handleSortSelect}>
           <option>Select an Option</option>
           <option>Last Name</option>
+          <option>First Name</option>
         </select>
       </div>
     </form>

@@ -66,77 +66,44 @@ class CardContainer extends React.Component {
         this.filterbyLastNameLetter(letter); 
     };
 
-    iterate = (currentEmployees, index, alpha, i) => {
-        let lastName= Array.from(currentEmployees[i].fullname.split(" ")[1]);
-        let namePortion = lastName.splice(index, 1)[0]; 
-        let nextNamePortion = Array.from(currentEmployees[i+1].fullname.split(" ")[1]).splice(index,1)[0]; 
-        if (namePortion === undefined){
-            return currentEmployees; 
-        }else if (nextNamePortion === undefined || alpha.indexOf(namePortion.toUpperCase()) > alpha.indexOf(nextNamePortion.toUpperCase())){
-            let currentEmployee = currentEmployees[i]; 
-            currentEmployees[i] = currentEmployees[i+1]; 
-            currentEmployees[i+1]= currentEmployee; 
-            i=0; 
-        } else if (alpha.indexOf(namePortion.toUpperCase()) === alpha.indexOf(nextNamePortion.toUpperCase())){
-            index++
-            this.iterate(currentEmployees, index, alpha, i); 
-        } 
-        return currentEmployees; 
-}
-
-    alphaSort = (employeeAlphaObject)=>{
-        const alpha= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        // debugger; 
-        for (const letter of alpha){
-            if (employeeAlphaObject[letter]){
-                if (employeeAlphaObject[letter].length >1){
-                    let currentEmployees = employeeAlphaObject[letter]
-                    // let lengthsOfNames= []; 
-                    // for (const employee of currentEmployees){
-                    //     lengthsOfNames.push(employee.fullname.split(" ")[1].length); 
-                    // }
-                    // let longestName = Math.max(...lengthsOfNames); 
-                    // debugger; 
-                    for (let i=0; i<currentEmployees.length-1; i++){ 
-                        let index=1; 
-                        currentEmployees = this.iterate(currentEmployees, index, alpha, i); 
-           
-                    }
-                }
-            }
-        }
-        return employeeAlphaObject; 
-    }
     handleSortSelect= event => {
         const choice = event.target.value; 
         console.log(choice); 
         if (choice === "Last Name"){
-            if (this.state.view === "all"){
-                let employeeAlphaObject= {}
-                for (const employee of this.state.viewEmployees){
-                    let lastName= employee.fullname.split(" ")[1];
-                    let initial = lastName.split("")[0]; 
-                    if (employeeAlphaObject[initial]){
-                        let currentEmployees = employeeAlphaObject[initial]; 
-                        currentEmployees.push(employee);
-                    } else {
-                        employeeAlphaObject[initial]= [employee]; 
-                    }
+            function compare(a, b) {
+                // Use toUpperCase() to ignore character casing
+                const nameA = a.fullname.split(" ")[1].toUpperCase();
+                const nameB = b.fullname.split(" ")[1].toUpperCase();
+                
+                let comparison = 0;
+                if (nameA > nameB) {
+                    comparison = 1;
+                } else if (nameA < nameB) {
+                    comparison = -1;
                 }
-                employeeAlphaObject = this.alphaSort(employeeAlphaObject); 
-                console.log(employeeAlphaObject); 
-                const alpha= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                let employeeAlphaArr=[]; 
-                for (const letter of alpha){
-                    if (employeeAlphaObject[letter]){
-                        let currentEmployees = employeeAlphaObject[letter]; 
-                        employeeAlphaArr.push(...currentEmployees); 
-                    }
+                return comparison;
                 }
-                this.setState({viewEmployees: employeeAlphaArr}); 
-            }
-        }
-        
+                
+            let employeeAlphaArr= this.state.viewEmployees.sort(compare);
+            this.setState({viewEmployees: employeeAlphaArr}); 
+        } else if (choice === "First Name"){
+            function compare(a, b) {
+                // Use toUpperCase() to ignore character casing
+                const nameA = a.fullname.split(" ")[0].toUpperCase();
+                const nameB = b.fullname.split(" ")[0].toUpperCase();
+                
+                let comparison = 0;
+                if (nameA > nameB) {
+                    comparison = 1;
+                } else if (nameA < nameB) {
+                    comparison = -1;
+                }
+                return comparison;
+                }
+                
+            let employeeAlphaArr= this.state.viewEmployees.sort(compare);
+            this.setState({viewEmployees: employeeAlphaArr}); 
+        } 
     };
 
     render() {
