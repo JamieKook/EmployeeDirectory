@@ -19,7 +19,7 @@ This webpage serves as a directory for a company's employees. When entering the 
 This project was created with react.js and utilizes randomuser API to get fake employee data to populate the directory.  
 
 ## Future Improvements
-I would like to improve the formating of the search bar and add additional sort by opitioons and a search field to look for specific employees. I also want to disable buttons for letters where there are no employees with that last name and visually represent this by muting the color of the letter button. 
+I would like to improve the formating of the search bar and add additional sort by opitions and a search field to look for specific employees. I also want to disable buttons for letters where there are no employees with that last name and visually represent this by muting the color of the letter button. 
 
 ## Meta 
 
