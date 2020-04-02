@@ -29,4 +29,4 @@ Github Repo:
 [https://github.com/JamieKook/EmployeeDirectory](https://github.com/JamieKook/EmployeeDirectory)
 
 Deployed App: 
-[https://fierce-harbor-22297.herokuapp.com//](https://fierce-harbor-22297.herokuapp.com//)
+[https://fierce-harbor-22297.herokuapp.com](https://fierce-harbor-22297.herokuapp.com)
